@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code × Premiere　YouTubeカット編集スキルの作り方</title>
+<meta name="description" content="Claude Codeにプロンプトを1回貼るだけで、無音・言い直しのカット、字幕、チャプターをPremiereに作るスキルを自分のPCに作れる導入マニュアル。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="logo" href="./">🎬 Claude Code × <span class="brain">Premiere</span> 編集スキル</a>
+    <nav class="topnav">
+      <a href="#what">これは何？</a>
+      <a href="#ready">準備</a>
+      <a href="#install">導入</a>
+      <a href="#check">動作確認</a>
+      <a href="#use">使い方</a>
+      <a href="#trouble">困ったとき</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-badge accent">Claude Code 導入マニュアル</div>
+  <h1>撮った動画を、<br><span class="hl">Premiereで直せる形</span>でカット編集。</h1>
+  <p class="lead">Claude Code にプロンプトを1回貼るだけで、無音の間と言い直しをカットしたシーケンス・字幕・YouTubeチャプターを作る「スキル」を、自分のPCに作れます。仕上げはいつものPremiereで自由に直せます。</p>
+  <div class="meta">
+    <span class="chip accent">Premiere Pro 2020〜2026</span>
+    <span class="chip">Windows 向け（Macも可）</span>
+    <span class="chip">Claude Code</span>
+  </div>
+</header>
+
+<main>
+
+<!-- 01 これは何 -->
+<section id="what">
+  <div class="sec-head"><div class="step-num">01</div><h2>これは何？ — カット編集の下ごしらえをAIに任せる</h2></div>
+  <div class="card">
+    <p>YouTubeの長尺動画で一番時間がかかるのは、<strong>無音の間や言い直しを1つずつ切っていく作業</strong>です。このマニュアルで作るスキルは、その下ごしらえを Claude Code が代わりにやり、<strong>Premiereで開けるカット済みのシーケンス</strong>として渡してくれます。</p>
+    <p>カットはタイムライン上の普通のクリップなので、「ここは残したい」「ここもっと詰めたい」を、あとからいつも通りPremiereで直せます。</p>
+  </div>
+
+  <div class="ba">
+    <div class="card before">
+      <span class="tag">BEFORE</span>
+      <p><strong>全部手作業</strong></p>
+      <div class="bubble">30分の素材を再生しながら、無音と言い直しを1つずつカット</div>
+      <div class="bubble">字幕を打ち込み、チャプターの時間を手で拾う</div>
+    </div>
+    <div class="card after">
+      <span class="tag">AFTER</span>
+      <p><strong>「この動画を編集して」と頼むだけ</strong></p>
+      <div class="bubble">カット済みシーケンス・字幕・チャプターがPremiereに入った状態からスタート</div>
+      <div class="bubble">自分は確認と仕上げ（テロップ・BGM・サムネ）に集中できる</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🎞 スキルがやること・やらないこと</h3>
+    <table>
+      <tr><th>やること</th><th>やらないこと（Premiereで自分で）</th></tr>
+      <tr><td>文字起こし（GPUで高速）</td><td>テロップのデザイン</td></tr>
+      <tr><td><b>0.45秒以上の間を0.2秒に詰める</b></td><td>BGM・効果音</td></tr>
+      <tr><td><b>言い直しは後のテイクを残してカット</b></td><td>ズーム・画面の動き</td></tr>
+      <tr><td>字幕（SRT）を作って字幕トラックに</td><td>サムネイル</td></tr>
+      <tr><td>チャプターを作ってマーカーを打つ</td><td>書き出し（エクスポート）</td></tr>
+    </table>
+  </div>
+
+  <div class="note tip"><span class="ico">💡</span><span><strong>「Fable 5.1が動画を編集した」という話との違い：</strong>話題になった編集は、Premiereを使わずにプログラム（コード）で映像を作る方法でした。こちらは「あとから自分でPremiereで直したい」人向けに、Premiereで開ける形で出す方法です。</span></div>
+</section>
+
+<!-- 02 準備 -->
+<section id="ready">
+  <div class="sec-head"><div class="step-num">02</div><h2>準備するもの</h2></div>
+  <div class="card">
+    <p>足りないものがあっても大丈夫です。導入の最初に Claude Code が確認して、入れ方を案内してくれます（入れる前に必ず確認を取ります）。</p>
+    <table>
+      <tr><th>必要なもの</th><th>目安</th></tr>
+      <tr><td><b>Adobe Premiere Pro</b></td><td class="mono">2020〜2026</td></tr>
+      <tr><td><b>Claude Code</b></td><td>ターミナル版・VS Code系エディタの拡張どちらでもOK</td></tr>
+      <tr><td>Node.js</td><td class="mono">20.19 以上</td></tr>
+      <tr><td>Python</td><td class="mono">3.10 以上</td></tr>
+      <tr><td>FFmpeg</td><td>コマンドで <span class="mono">ffmpeg</span> が動く状態</td></tr>
+      <tr><td>faster-whisper</td><td>文字起こし用。NVIDIAのGPUがあると速い（なくても動くが遅い）</td></tr>
+    </table>
+  </div>
+
+  <div class="note warn"><span class="ico">⚠️</span><span>Premiereの外部操作には、無料のオープンソース <strong>premiere-pro-mcp</strong>（MITライセンス）を使います。<strong>Adobeの公式ツールではありません。</strong>導入時にPremiereへ拡張機能を入れ、署名なしの拡張機能を許可する設定（PlayerDebugMode）が変わります。</span></div>
+
+  <div class="note ok"><span class="ico">✅</span><span>おすすめモデルは、そのとき一番賢いモデル（例：Claude Fable 5.1）。手順が長いので、賢いモデルほど途中で迷いにくいです。</span></div>
+</section>
+
+<!-- 03 導入 -->
+<section id="install">
+  <div class="sec-head"><div class="step-num">03</div><h2>導入 — プロンプトを1回貼るだけ</h2></div>
+  <div class="card">
+    <h3>STEP 1　Claude Code にこのプロンプトを貼る</h3>
+    <p>作業フォルダはどこでもOKです。貼ったら、あとは Claude Code の質問に答えていくだけ。</p>
+    <div class="prompt-box" style="margin-top:12px">
+      <div class="prompt-head">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="fname">導入プロンプト</span>
+        <button class="copy-btn" data-target="installPrompt">コピー</button>
+      </div>
+      <div class="prompt-scroll"><pre id="installPrompt"></pre></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>STEP 2　進む流れ</h3>
+    <div class="flow">
+      <div class="flow-item">
+        <div class="flow-dot">A</div>
+        <div class="flow-body"><b>環境の確認（読むだけ）</b><span>Node.js・Python・FFmpeg・faster-whisper・GPUが使えるかを確認</span></div>
+      </div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item">
+        <div class="flow-dot">B</div>
+        <div class="flow-body"><b>Premiere MCP の導入</b><span>「入れていい？」と聞かれたらOK。途中で Claude Code の再起動をお願いされます</span></div>
+      </div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item">
+        <div class="flow-dot">C</div>
+        <div class="flow-body"><b>スキルを作る</b><span>スクリプトとSKILL.mdを、自分のPC用に調整して配置</span></div>
+      </div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item">
+        <div class="flow-dot">D</div>
+        <div class="flow-body"><b>短い動画で動作確認</b><span>1〜2分の動画で、Premiereに正しく入るかを一緒にチェック（次の04）</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>STEP 3　Premiereで拡張機能を開く</h3>
+    <ol>
+      <li>Premiereを起動して、何かプロジェクトを開く</li>
+      <li><b>ウィンドウ ＞ エクステンション ＞ MCP for Adobe Premiere Pro</b> を開く</li>
+      <li>パネルに <b>Running</b> と出ていればOK（開いたままにしておく）</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>🔁 再起動をお願いされたら</h3>
+    <p>MCPはClaude Codeの起動時に読み込まれるので、導入の途中で1回だけ再起動が必要です。再起動したら、これを貼ると続きから進みます。</p>
+    <div class="prompt-box" style="margin-top:12px">
+      <div class="prompt-head">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="fname">再起動後に貼るプロンプト</span>
+        <button class="copy-btn" data-target="resumePrompt">コピー</button>
+      </div>
+      <div class="prompt-scroll"><pre id="resumePrompt"></pre></div>
+    </div>
+  </div>
+
+  <details>
+    <summary>📂 配布ファイル（Claude Code がダウンロードするもの）</summary>
+    <div class="d-body">
+      <table>
+        <tr><th>ファイル</th><th>中身</th></tr>
+        <tr><td><a href="files/claude-code-guide.md">claude-code-guide.md</a></td><td>Claude Code が読む手順書</td></tr>
+        <tr><td><a href="files/transcribe.py">transcribe.py</a></td><td>文字起こし（単語ごとの時刻つき）</td></tr>
+        <tr><td><a href="files/make_edit.py">make_edit.py</a></td><td>カット計画 → Premiere用XML・字幕・チャプター・確認動画</td></tr>
+        <tr><td><a href="files/SKILL_template.md">SKILL_template.md</a></td><td>スキルの説明書のひな形</td></tr>
+      </table>
+    </div>
+  </details>
+</section>
+
+<!-- 04 動作確認 -->
+<section id="check">
+  <div class="sec-head"><div class="step-num">04</div><h2>短い動画で動作確認</h2></div>
+  <div class="card">
+    <p>いきなり本番の長い動画で使わず、<strong>1〜2分の短い動画</strong>で一度通します。Claude Code と一緒に、次の8つを確認します。</p>
+    <table>
+      <tr><th>#</th><th>確認すること</th></tr>
+      <tr><td class="mono">1</td><td>文字起こしがGPUで動いた</td></tr>
+      <tr><td class="mono">2</td><td>Premiereで開ける。<b>メディアオフライン（赤い画面）</b>が出ない</td></tr>
+      <tr><td class="mono">3</td><td>カットの数が、Claude Code の報告と同じ</td></tr>
+      <tr><td class="mono">4</td><td><b>音が左右両方から出る</b>、映像と音がズレていない</td></tr>
+      <tr><td class="mono">5</td><td>解像度・フレームレートが元の動画と同じ</td></tr>
+      <tr><td class="mono">6</td><td>字幕がセリフと合っている（後半でもズレない）</td></tr>
+      <tr><td class="mono">7</td><td>チャプターのマーカーが話題の頭にある</td></tr>
+      <tr><td class="mono">8</td><td>元の動画ファイルが変わっていない</td></tr>
+    </table>
+  </div>
+
+  <div class="note warn"><span class="ico">⚠️</span><span>スクリプトはテスト動画で「文字起こし→カット→字幕→チャプター→確認動画」まで動作確認済みですが、<strong>Premiereへの読み込みは使う人のPC・Premiereのバージョンで差が出る</strong>ことがあります。だから最初に短い動画で確認し、ズレや不具合があればその場で Claude Code に直してもらう流れにしています。</span></div>
+</section>
+
+<!-- 05 使い方 -->
+<section id="use">
+  <div class="sec-head"><div class="step-num">05</div><h2>使い方と、スキルの育て方</h2></div>
+  <div class="card">
+    <h3>✂️ ふだんの頼み方</h3>
+    <p>動画の場所を渡すだけ。固有名詞（商品名・人名など）を添えると、字幕の変換ミスが減ります。</p>
+    <div class="prompt-box" style="margin-top:12px">
+      <div class="prompt-head">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="fname">編集を頼む</span>
+        <button class="copy-btn" data-target="usePrompt">コピー</button>
+      </div>
+      <div class="prompt-scroll"><pre id="usePrompt"></pre></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🔄 1本の流れ</h3>
+    <div class="flow">
+      <div class="flow-item"><div class="flow-dot">1</div><div class="flow-body"><b>文字起こし＋無音の検出</b><span>自動</span></div></div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item"><div class="flow-dot">2</div><div class="flow-body"><b>言い直しとチャプターの案を確認</b><span>「ここを消します」「チャプターはこれで」の一覧が出るので、OKか直してほしい所を伝える</span></div></div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item"><div class="flow-dot">3</div><div class="flow-body"><b>Premiereにカット済みシーケンスが入る</b><span>字幕トラック・チャプターのマーカーつき</span></div></div>
+      <div class="flow-item"><div class="flow-line"></div></div>
+      <div class="flow-item"><div class="flow-dot">4</div><div class="flow-body"><b>Premiereで仕上げ</b><span>テロップ・BGM・微調整。概要欄用のチャプターテキストも受け取る</span></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🌱 自分好みに育てる</h3>
+    <p>「間をもう少し残して」「字幕は短めに」など、話しかけて直せます。ただし<strong>その場で直しただけだと、次の動画では元に戻ります。</strong>気に入った直し方は、最後にこう伝えてください。</p>
+    <div class="prompt-box" style="margin-top:12px">
+      <div class="prompt-head">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="fname">スキルに反映する</span>
+        <button class="copy-btn" data-target="tunePrompt">コピー</button>
+      </div>
+      <div class="prompt-scroll"><pre id="tunePrompt"></pre></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🎛 よく調整するポイント</h3>
+    <table>
+      <tr><th>こうしたい</th><th>伝え方の例</th></tr>
+      <tr><td>間をもっと残したい</td><td>「間は0.3秒くらい残して」</td></tr>
+      <tr><td>言葉の頭や語尾が切れる</td><td>「言葉の前後をもう少し残して」</td></tr>
+      <tr><td>字幕を短く</td><td>「字幕は1枚14文字まで」</td></tr>
+      <tr><td>「えー」「あのー」も切る</td><td>「フィラーもカットして」</td></tr>
+      <tr><td>環境音がある部屋で撮った</td><td>「無音の判定をゆるくして（-30dB）」</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 06 困ったとき -->
+<section id="trouble">
+  <div class="sec-head"><div class="step-num">06</div><h2>困ったとき</h2></div>
+  <p style="color:var(--ink-soft);font-size:.92rem;margin-bottom:8px">基本は、症状をそのまま Claude Code に伝えれば手順書を見て直してくれます。よくあるものだけ載せています。</p>
+
+  <details>
+    <summary>エクステンションのメニューに「MCP for Adobe Premiere Pro」が出ない</summary>
+    <div class="d-body">
+      <p>Premiereを<b>完全に終了</b>してから、Claude Code に「拡張機能の診断をして入れ直して」と伝えてください。<span class="mono">premiere-pro-mcp --diagnose-cep</span> で原因を調べ、入れ直してくれます。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Premiereで開くと赤い画面（メディアオフライン）になる</summary>
+    <div class="d-body">
+      <p>動画ファイルの場所をPremiereが見つけられていません。フォルダ名に日本語やスペースがあると起きることがあります。Claude Code に「メディアオフラインになった」と伝えてください。すぐ試すなら、Premiereの「メディアをリンク」で元の動画を選べば直ります。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>片側しか音が出ない／映像と音がだんだんズレる</summary>
+    <div class="d-body">
+      <p>音声のチャンネル数か、スマホ撮影の可変フレームレートが原因のことが多いです。症状をそのまま伝えてください。ズレの場合は、元動画を残したまま固定フレームレートのコピーを作ってから編集します。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>MCPがどうしても動かない</summary>
+    <div class="d-body">
+      <p><b>MCPなしでもスキルは使えます。</b>Claude Code が作ったファイルを、自分でPremiereに読み込むだけです。</p>
+      <ul>
+        <li>シーケンス：ファイル ＞ 読み込み → <span class="mono">output</span> フォルダの <span class="mono">.xml</span></li>
+        <li>字幕：<span class="mono">_字幕.srt</span> をプロジェクトに読み込み → タイムラインにドラッグ</li>
+        <li>チャプター：<span class="mono">_チャプター.txt</span> をYouTubeの概要欄に貼る</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>CapCutでも使える？</summary>
+    <div class="d-body">
+      <p>CapCutは編集データを外から作れないため、シーケンスとしては渡せません。代わりに「カット済みの動画を高画質で書き出して、字幕SRTと一緒にCapCutに読み込む」ことはできます。Claude Code に「CapCut用にカット済み動画を書き出して」と頼んでください。</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>使わなくなったので消したい</summary>
+    <div class="d-body">
+      <p>Claude Code に「premiere-pro-mcp とこのスキルをアンインストールして」と伝えてください。拡張機能の削除・MCPの登録解除・スキルフォルダの削除を、確認を取りながら進めます。</p>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-in">
+    <span>🎬 Claude Code × Premiere　YouTubeカット編集スキルの作り方</span>
+    <span>制作：関 諒也</span>
+  </div>
+</footer>
+
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
