@@ -208,7 +208,7 @@ section{margin-top:64px}
   display:flex;align-items:center;justify-content:center;
   font-family:'DM Mono',monospace;
 }
-.flow-line{width:2px;flex-grow:1;background:var(--line);margin-left:16px;min-height:14px}
+.flow-line{width:2px;flex:none;height:18px;background:var(--line);margin-left:16px}
 .flow-body{padding-bottom:18px;padding-top:4px}
 .flow-body b{font-size:.95rem}
 .flow-body span{display:block;font-size:.85rem;color:var(--ink-soft)}
